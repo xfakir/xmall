@@ -13,10 +13,14 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>xmall</name>
     <description>xmall</description>
-
+    <packaging>pom</packaging>
     <properties>
         <java.version>1.8</java.version>
     </properties>
+
+    <modules>
+        <module>xmall-common</module>
+    </modules>
 
     <dependencies>
         <dependency>

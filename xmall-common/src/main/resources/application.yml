@@ -1,0 +1,5 @@
+mybatis:
+  type-aliases-package: cn.xfakir.xmall.common.entity
+  mapper-locations: cn.xfakir.xmall.common.mapper
+mapper:
+  mappers:

@@ -1,13 +1,13 @@
-package cn.xfakir.xmall;
+package cn.xfakir.xmall.common;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class XmallApplication {
+public class XmallCommonApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(XmallApplication.class, args);
+        SpringApplication.run(XmallCommonApplication.class, args);
     }
 
 }
