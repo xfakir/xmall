@@ -2,4 +2,5 @@ mybatis:
   type-aliases-package: cn.xfakir.xmall.common.entity
   mapper-locations: cn.xfakir.xmall.common.mapper
 mapper:
-  mappers:
+  mappers: cn.xfakir.xmall.common.config.BaseMapper
+  identity: MYSQL

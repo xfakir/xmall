@@ -20,6 +20,7 @@
 
     <modules>
         <module>xmall-common</module>
+        <module>xmall-portal</module>
     </modules>
 
     <dependencies>
