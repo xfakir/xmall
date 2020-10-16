@@ -35,7 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .password("$2a$10$RMuFXGQ5AtH4wOvkUqyvuecpqUSeoxZYqilXzbz50dceRsga.WYiq") //123
                 .roles("user");
         // TODO:userDetailService
-        auth.userDetailsService().passwordEncoder(new PasswordEncoder() {
+        auth.userDetailsService(userDetailsService()).passwordEncoder(new PasswordEncoder() {
             @Override
             public String encode(CharSequence charSequence) {
                 return null;
