@@ -4,13 +4,13 @@ import lombok.Data;
 
 import java.util.Date;
 
-
 @Data
-public class XmMemberThirdPartyCert {
+public class XmMemberAuthorization {
     private Long id;
     private Long memberId;
-    private Integer authType;
+    private Integer authorizationType;
     private String identifier;
     private String credential;
-    private Date bindTime;
+    private Date createTime;
+    private Date updateTime;
 }

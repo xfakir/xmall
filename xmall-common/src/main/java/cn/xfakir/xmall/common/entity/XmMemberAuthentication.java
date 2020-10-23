@@ -2,19 +2,17 @@ package cn.xfakir.xmall.common.entity;
 
 import lombok.Data;
 
-import javax.persistence.Id;
 import java.util.Date;
 
+/**
+ * 实名认证
+ */
 @Data
-public class XmMember {
-    @Id
+public class XmMemberAuthentication {
     private Long id;
     private Long memberId;
-    private String nickname;
-    private String avatar;
-    private String phone;
-    private String email;
-    private Integer status;
+    private String name;
+    private String idCard;
     private Date createTime;
     private Date updateTime;
 }

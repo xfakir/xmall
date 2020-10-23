@@ -1,3 +1,6 @@
 spring:
   profiles:
     include: source
+mybatis:
+  mapper-locations: classpath*:cn/xfakir/xmall/common/mapper/*.xml
+  type-aliases-package: cn.xfakir.xmall.common.entity

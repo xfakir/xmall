@@ -1,6 +1,7 @@
 package cn.xfakir.xmall.portal.controller;
 
 import cn.xfakir.xmall.common.entity.XmMember;
+import cn.xfakir.xmall.common.entity.XmMemberAuthorization;
 import cn.xfakir.xmall.common.sms.Auth;
 import cn.xfakir.xmall.common.sms.MessageManager;
 import cn.xfakir.xmall.common.system.Xresult;
@@ -29,6 +30,16 @@ public class MemberController {
     public Xresult signUp(XmMember member) {
         memberService.signUp(member);
         return null;
+    }
+
+    @RequestMapping("/getMember")
+    public XmMember getMember(Long id) {
+        return memberService.getMemberById(id);
+    }
+
+    @RequestMapping("/getMemberByPwd")
+    public XmMember getMember(XmMemberAuthorization xmMemberAuthorization) {
+        return memberService.getMember(xmMemberAuthorization);
     }
 
     @RequestMapping("/test")
