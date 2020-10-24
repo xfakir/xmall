@@ -6,4 +6,5 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface XmMemberAuthorizationMapper extends BaseMapper<XmMemberAuthorization> {
+    XmMemberAuthorization getAuthorizationByIdentifier(String identifier);
 }

@@ -1,6 +1,7 @@
 package cn.xfakir.xmall.security.service;
 
 import cn.xfakir.xmall.common.entity.XmMember;
+import cn.xfakir.xmall.common.entity.XmMemberAuthorization;
 import cn.xfakir.xmall.common.mapper.XmMemberAuthorizationMapper;
 import cn.xfakir.xmall.common.mapper.XmMemberMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,15 +13,15 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 public class XmUserDetailService implements UserDetailsService {
 
     @Autowired
-    private XmMemberMapper xmMemberMapper;
+    private XmMemberAuthorizationMapper xmMemberAuthorizationMapper;
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        XmMember xmMember = xmMemberMapper.getMemberByMemberId(Long.valueOf(s));
-        if (xmMember == null) {
+        XmMemberAuthorization memberAuthorization = xmMemberAuthorizationMapper.getAuthorizationByIdentifier(s);
+        if (memberAuthorization == null) {
             throw new UsernameNotFoundException("username cannot be found");
         }
 
-        return new User();
+        return new User(memberAuthorization.getIdentifier(),memberAuthorization.getCredential(),true,true,true,);
     }
 }
