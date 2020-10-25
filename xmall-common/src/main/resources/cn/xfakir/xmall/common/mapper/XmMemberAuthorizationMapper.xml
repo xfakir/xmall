@@ -9,17 +9,21 @@
         <result column="credential" jdbcType="VARCHAR" javaType="String" property="credential"/>
         <result column="status" jdbcType="INTEGER" javaType="int" property="status"/>
         <result column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" property="createTime"/>
-        <collection property="roleList" ofType="String" javaType="java.util.List">
-            <constructor>
-                <arg column="role_name" />
-            </constructor>
+        <collection property="roleList" ofType="cn.xfakir.xmall.common.entity.XmRole">
+            <result column="role_name" property="roleName" jdbcType="VARCHAR" javaType="String" />
+            <collection property="authorityList" ofType="cn.xfakir.xmall.common.entity.XmAuthority">
+                <result column="authority_name" property="authorityName" jdbcType="VARCHAR" javaType="String"/>
+            </collection>
         </collection>
     </resultMap>
 
     <select id="getAuthorizationByIdentifier" resultMap="XmMemberAuthorization">
-        select a.member_id,a.authorization_type,a.identifier,a.credential,a.status,a.create_time
-            from xm_member_authorization a left join xm_member_role r on a.member_id = r.member_id
-            where a.identifier=#{identifier}
-        limit 1
+        select
+            a.member_id,a.authorization_type,a.identifier,a.credential,a.status,a.create_time,
+            r.role_name,xa.authority_name
+            from xm_member_authorization a,xm_role r,xm_authority xa
+            left join xm_member_role xmr on a.member_id = xmr.member_id
+            left join xm_role_authority xra on xmr.role_id = xra.role_id
+        where a.identifier = #{identier} and r.role_id=xmr.role_id and xa.authority_id=xra.authority_id
     </select>
 </mapper>

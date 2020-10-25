@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @tk.mybatis.spring.annotation.MapperScan(basePackages = "cn.xfakir.xmall.common.mapper")
-@ComponentScan("cn.xfakir")
+@ComponentScan("cn.xfakir.xmall")
 @SpringBootApplication
 public class XmallPortalApplication {
 

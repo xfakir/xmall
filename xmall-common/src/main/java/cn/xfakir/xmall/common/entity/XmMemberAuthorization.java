@@ -12,7 +12,7 @@ public class XmMemberAuthorization {
     private Integer authorizationType;
     private String identifier;
     private String credential;
-    private List<String> roleList;
+    private List<XmRole> roleList;
     private Integer status;
     private Date createTime;
     private Date updateTime;

@@ -20,11 +20,6 @@ public class MemberController {
     @Autowired
     private MemberService memberService;
 
-    @Value("${qiniu.access_key}")
-    private String ACCESS_KEY;
-
-    @Value("${qiniu.secret_key}")
-    private String SECRET_KEY;
 
     @RequestMapping("/signUp")
     public Xresult signUp(XmMember member) {
@@ -42,7 +37,7 @@ public class MemberController {
         return memberService.getMember(xmMemberAuthorization);
     }
 
-    @RequestMapping("/test")
+    /*@RequestMapping("/test")
     public String send(String phone) {
         System.out.println(ACCESS_KEY);
         Auth auth = Auth.create(ACCESS_KEY,SECRET_KEY);
@@ -51,5 +46,5 @@ public class MemberController {
         map.put("code","1023");
         messageManager.sendMessage("1154931928005087232",new String[] {"18679159286"},map);
         return "success";
-    }
+    }*/
 }
