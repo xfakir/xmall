@@ -1,4 +1,4 @@
-package cn.xfakir.xmall.common.interceptor;
+package cn.xfakir.xmall.common.web.interceptor;
 
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.LoggerFactory;

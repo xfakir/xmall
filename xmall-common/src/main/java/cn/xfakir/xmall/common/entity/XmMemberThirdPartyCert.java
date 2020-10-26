@@ -2,13 +2,15 @@ package cn.xfakir.xmall.common.entity;
 
 import lombok.Data;
 
+import java.util.Date;
+
 
 @Data
 public class XmMemberThirdPartyCert {
-    private Long memberThirdPartyCertId;
+    private Long id;
     private Long memberId;
     private Integer authType;
     private String identifier;
     private String credential;
-    private String bindTime;
+    private Date bindTime;
 }

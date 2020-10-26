@@ -1,5 +1,6 @@
 package cn.xfakir.xmall.security.config;
 
+import cn.xfakir.xmall.security.service.XmUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +16,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.error.WebResponseExceptionTranslator;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
@@ -23,6 +25,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.sql.DataSource;
 
 /**
  * 授权服务器
@@ -31,14 +34,28 @@ import javax.servlet.http.HttpServletRequest;
 @EnableAuthorizationServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
     @Autowired
+    private DataSource dataSource;
+
+    @Autowired
     private AuthenticationManager authenticationManager;
 
     @Autowired
     RedisConnectionFactory redisConnectionFactory;
 
     @Autowired
-    private UserDetailsService userDetailsService;
+    private XmUserDetailService userDetailsService;
 
+
+    @Bean
+    public RedisTokenStore redisTokenStore() {
+        return new RedisTokenStore(redisConnectionFactory);
+    }
+
+    //TODO: 可能是这里的问题,先用inMemory试试
+    @Bean
+    public JdbcClientDetailsService jdbcClientDetailsService() {
+        return new JdbcClientDetailsService(dataSource);
+    }
 
     @Bean
     PasswordEncoder passwordEncoder() {
@@ -71,18 +88,12 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients.inMemory()
-                .withClient("password")
-                .authorizedGrantTypes("password", "refresh_token") //授权模式为password和refresh_token两种
-                .accessTokenValiditySeconds(1800) // 配置access_token的过期时间
-                .resourceIds("rid") //配置资源id
-                .scopes("all")
-                .secret("$2a$10$RMuFXGQ5AtH4wOvkUqyvuecpqUSeoxZYqilXzbz50dceRsga.WYiq"); //123加密后的密码
+        clients.withClientDetails(jdbcClientDetailsService());
     }
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-        endpoints.tokenStore(new RedisTokenStore(redisConnectionFactory)) //配置令牌的存储（这里存放在内存中）
+        endpoints.tokenStore(redisTokenStore())
                 .authenticationManager(authenticationManager)
                 .userDetailsService(userDetailsService);
     }

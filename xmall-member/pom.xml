@@ -3,44 +3,29 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.3.4.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <artifactId>xmall</artifactId>
+        <groupId>cn.xfakir</groupId>
+        <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <groupId>cn.xfakir</groupId>
-    <artifactId>xmall</artifactId>
+    <artifactId>xmall-member</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>xmall</name>
-    <description>xmall</description>
-    <packaging>pom</packaging>
+    <name>xmall-member</name>
+    <description>member project for xmall</description>
+
     <properties>
         <java.version>1.8</java.version>
     </properties>
 
-    <modules>
-        <module>xmall-common</module>
-        <module>xmall-portal</module>
-        <module>xmall-security</module>
-        <module>xmall-member</module>
-    </modules>
-
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <scope>runtime</scope>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
+            <groupId>cn.xfakir</groupId>
+            <artifactId>xmall-common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
