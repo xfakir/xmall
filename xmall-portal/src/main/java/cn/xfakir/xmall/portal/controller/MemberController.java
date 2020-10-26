@@ -2,12 +2,15 @@ package cn.xfakir.xmall.portal.controller;
 
 import cn.xfakir.xmall.common.entity.XmMember;
 import cn.xfakir.xmall.common.entity.XmMemberAuthorization;
+import cn.xfakir.xmall.common.mapper.XmMemberAuthorizationMapper;
 import cn.xfakir.xmall.common.sms.Auth;
 import cn.xfakir.xmall.common.sms.MessageManager;
 import cn.xfakir.xmall.common.system.Xresult;
 import cn.xfakir.xmall.member.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,11 +23,23 @@ public class MemberController {
     @Autowired
     private MemberService memberService;
 
+    @Autowired
+    private XmMemberAuthorizationMapper authorizationMapper;
+
 
     @RequestMapping("/signUp")
     public Xresult signUp(XmMember member) {
         memberService.signUp(member);
         return null;
+    }
+
+    @RequestMapping("/updatePassword")
+    public String updatePassword(XmMemberAuthorization xmMemberAuthorization) {
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String credential = xmMemberAuthorization.getCredential();
+        xmMemberAuthorization.setCredential(passwordEncoder.encode(credential));
+        authorizationMapper.updateCredential(xmMemberAuthorization);
+        return "success";
     }
 
     @RequestMapping("/getMember")

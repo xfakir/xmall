@@ -30,4 +30,5 @@ public class MemberServiceImpl implements MemberService {
     public XmMember getMember(XmMemberAuthorization xmMemberAuthorization) {
         return memberMapper.getMemberByAuthorization(xmMemberAuthorization);
     }
+
 }

@@ -1,6 +1,8 @@
 spring:
   profiles:
     include: source
+  main:
+    allow-bean-definition-overriding: true
 mybatis:
   mapper-locations: classpath*:cn/xfakir/xmall/common/mapper/*.xml
   type-aliases-package: cn.xfakir.xmall.common.entity

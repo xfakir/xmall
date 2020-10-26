@@ -9,4 +9,5 @@ public interface MemberService {
     XmMember getMemberById(Long id);
 
     XmMember getMember(XmMemberAuthorization xmMemberAuthorization);
+    
 }

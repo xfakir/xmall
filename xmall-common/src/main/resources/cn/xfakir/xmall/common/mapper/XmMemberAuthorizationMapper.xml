@@ -26,4 +26,8 @@
             left join xm_role_authority xra on xmr.role_id = xra.role_id
         where a.identifier = #{identier} and r.role_id=xmr.role_id and xa.authority_id=xra.authority_id
     </select>
+    <update id="updateCredential" parameterType="cn.xfakir.xmall.common.entity.XmMemberAuthorization">
+        update xm_member_authorization
+        set credential = #{credential} where identifier =#{identifier}
+    </update>
 </mapper>

@@ -16,4 +16,8 @@ public class TestController {
         return "order";
     }
 
+    @RequestMapping("/callback")
+    public String callBack() {
+        return "callback";
+    }
 }
