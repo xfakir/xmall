@@ -77,8 +77,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
             }
         };
         // 表示支持 client_id 和 client_secret 做登录认证
-        security.tokenKeyAccess("isAuthenticated()")
-                .checkTokenAccess("isAuthenticated()")
+        security.tokenKeyAccess("permitAll()")
+                .checkTokenAccess("permitAll()")
                 .allowFormAuthenticationForClients()
                 .addTokenEndpointAuthenticationFilter(new CorsFilter(source));
     }
@@ -91,6 +91,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .authorizedGrantTypes("authorization_code") //授权模式标识
                 .scopes("read_user_info") //作用域
                 .resourceIds("resource1") //资源id
+                .autoApprove(true)
                 .redirectUris("http://localhost:8080/test/callback"); //回调地址
         //clients.withClientDetails(jdbcClientDetailsService());
     }

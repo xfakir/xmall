@@ -26,7 +26,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
-        resources.resourceId("project_api") // 配置资源id，这里的资源id和授权服务器中的资源id一致
+        resources.resourceId("resource1") // 配置资源id，这里的资源id和授权服务器中的资源id一致
                 .stateless(true)// 设置这些资源仅基于令牌认证
         .tokenStore(redisTokenStore());
     }
@@ -41,7 +41,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
          * 不会进入ResourceServerConfigurerAdapter 进行basic auth或表单验证
          */
         http.authorizeRequests()
-                .antMatchers("/order/**").authenticated()
+                .antMatchers("/test/order/**").authenticated()
                 .anyRequest().permitAll();
     }
 }
