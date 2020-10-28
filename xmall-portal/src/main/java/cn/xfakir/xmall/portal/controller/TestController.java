@@ -1,8 +1,13 @@
 package cn.xfakir.xmall.portal.controller;
 
+import cn.hutool.http.HttpRequest;
+import cn.hutool.http.HttpUtil;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RequestMapping("/test")
 @RestController
@@ -19,6 +24,13 @@ public class TestController {
 
     @RequestMapping("/callback")
     public String callBack(@RequestParam String code) {
-        return code;
+        String url = "http://localhost:8080/oauth/token";
+        Map<String, Object> param = new HashMap<>();
+        param.put("code",code);
+        param.put("grant_type","authorization_code");
+        param.put("redirect_url","http://localhost:8080/test/callback");
+        param.put("scope","read_user_info");
+        String result = HttpRequest.post(url).form(param).basicAuth("client-a","client-a-secret").execute().body();
+        return result;
     }
 }

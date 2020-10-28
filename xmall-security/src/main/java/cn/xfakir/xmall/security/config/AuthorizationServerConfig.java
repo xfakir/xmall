@@ -77,9 +77,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
             }
         };
         // 表示支持 client_id 和 client_secret 做登录认证
-        security.tokenKeyAccess("permitAll()")
-                .checkTokenAccess("permitAll()")
-                .allowFormAuthenticationForClients()
+        security.tokenKeyAccess("isAuthenticated()") //允许已授权用户获取 token 接口
+                .checkTokenAccess("isAuthenticated()") //允许已授权用户访问 checkToken 接口
+                .allowFormAuthenticationForClients() //允许客户端访问 OAuth2 授权接口，否则请求 token 会返回 401。
                 .addTokenEndpointAuthenticationFilter(new CorsFilter(source));
     }
 
