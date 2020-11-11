@@ -13,10 +13,8 @@ import org.springframework.security.oauth2.provider.token.store.redis.RedisToken
 /**
  * 配置资源服务器
  */
-@Configuration
-@EnableResourceServer
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
-    @Autowired
+    /*@Autowired
     RedisConnectionFactory redisConnectionFactory;
 
     @Bean
@@ -33,15 +31,15 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        /**
+        *//**
          * 这里配置需要token验证的url
          * 这些url也可以在WebSecurityConfigurerAdapter中配置
          * 对于相同的url，如果二者都进行了配置
          * 则优先进入ResourceServerConfigurerAdapter，进行token验证
          * 不会进入ResourceServerConfigurerAdapter 进行basic auth或表单验证
-         */
+         *//*
         http.authorizeRequests()
                 .antMatchers("/test/order/**").authenticated()
                 .anyRequest().permitAll();
-    }
+    }*/
 }

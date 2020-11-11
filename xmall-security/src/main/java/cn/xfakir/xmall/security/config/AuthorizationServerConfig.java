@@ -31,10 +31,8 @@ import javax.sql.DataSource;
 /**
  * 授权服务器
  */
-@Configuration
-@EnableAuthorizationServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
-    @Resource
+    /*@Resource
     private DataSource dataSource;
 
     @Autowired
@@ -92,7 +90,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .scopes("read_user_info") //作用域
                 .resourceIds("resource1") //资源id
                 .autoApprove(true)
-                .redirectUris("http://localhost:8080/test/callback"); //回调地址
+                .redirectUris("http://localhost:8080/test/code"); //回调地址
         //clients.withClientDetails(jdbcClientDetailsService());
     }
 
@@ -101,5 +99,5 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         endpoints.tokenStore(redisTokenStore)
                 .authenticationManager(authenticationManager)
                 .userDetailsService(userDetailsService);
-    }
+    }*/
 }

@@ -22,15 +22,17 @@ public class TestController {
         return "order";
     }
 
-    @RequestMapping("/callback")
+    @RequestMapping("/code")
     public String callBack(@RequestParam String code) {
         String url = "http://localhost:8080/oauth/token";
+        System.out.println(code);
         Map<String, Object> param = new HashMap<>();
         param.put("code",code);
         param.put("grant_type","authorization_code");
-        param.put("redirect_url","http://localhost:8080/test/callback");
+        param.put("redirect_url","http://localhost:3000/callback");
         param.put("scope","read_user_info");
         String result = HttpRequest.post(url).form(param).basicAuth("client-a","client-a-secret").execute().body();
         return result;
     }
+
 }

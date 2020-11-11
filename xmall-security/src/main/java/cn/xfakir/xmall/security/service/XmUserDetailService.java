@@ -30,7 +30,7 @@ public class XmUserDetailService implements UserDetailsService {
         System.out.println(s);
         XmMemberAuthorization memberAuthorization = xmMemberAuthorizationMapper.getAuthorizationByIdentifier(s);
         if (memberAuthorization == null) {
-            throw new UsernameNotFoundException("username cannot be found");
+            throw new UsernameNotFoundException("该用户不存在");
         }
         List<GrantedAuthority> list = new ArrayList<>();
         for (XmRole role : memberAuthorization.getRoleList()) {
