@@ -1,4 +1,4 @@
-package cn.xfakir.xmall.common.uitl;
+package cn.xfakir.xmall.common.uitls;
 
 import org.apache.tomcat.util.codec.binary.Base64;
 
