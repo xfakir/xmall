@@ -53,6 +53,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     AuthenticationUsernamePasswordFilter authenticationUsernamePasswordFilter() throws Exception {
         AuthenticationUsernamePasswordFilter authenticationUsernamePasswordFilter = new AuthenticationUsernamePasswordFilter();
         authenticationUsernamePasswordFilter.setAuthenticationManager(authenticationManagerBean());
+        authenticationUsernamePasswordFilter.setAuthenticationSuccessHandler(authenticationSuccessHandler);
+        authenticationUsernamePasswordFilter.setAuthenticationFailureHandler(authenticationFailureHandler);
         return authenticationUsernamePasswordFilter;
     }
 
@@ -76,11 +78,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        //auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
-        auth.inMemoryAuthentication()
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
+        /*auth.inMemoryAuthentication()
                 .withUser("smm")
                 .password(passwordEncoder.encode("123"))
-                .authorities(Collections.emptyList());
+                .authorities(Collections.emptyList());*/
     }
 
     @Override
@@ -95,7 +97,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/test/product","/test/user","/**").permitAll();
+                .antMatchers("/test/product").permitAll();
         registry.anyRequest().authenticated()
                 .and()
                 .userDetailsService(userDetailsService)
