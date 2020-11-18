@@ -21,9 +21,15 @@
         select
             a.member_id,a.authorization_type,a.identifier,a.credential,a.status,a.create_time,
             r.role_name,xa.authority_name
-            from xm_member_authorization a,xm_role r,xm_authority xa
-            left join xm_member_role xmr on a.member_id = xmr.member_id
-            left join xm_role_authority xra on xmr.role_id = xra.role_id
-        where a.identifier = #{identier} and r.role_id=xmr.role_id and xa.authority_id=xra.authority_id
+        from xm_authority xa
+                 inner join xm_role_authority xra on xa.authority_id = xra.authority_id
+                 inner join xm_role r on r.role_id = xra.role_id
+                 inner join xm_member_role xmr on r.role_id = xmr.role_id
+                 inner join xm_member_authorization a on xmr.member_id = a.member_id
+        where a.identifier = #{identier}
     </select>
+    <update id="updateCredential" parameterType="cn.xfakir.xmall.common.entity.XmMemberAuthorization">
+        update xm_member_authorization
+        set credential = #{credential} where identifier =#{identifier}
+    </update>
 </mapper>

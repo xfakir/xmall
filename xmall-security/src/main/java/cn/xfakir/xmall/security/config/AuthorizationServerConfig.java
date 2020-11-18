@@ -24,32 +24,27 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.sql.DataSource;
 
 /**
  * 授权服务器
  */
-@Configuration
-@EnableAuthorizationServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
-    @Autowired
+    /*@Resource
     private DataSource dataSource;
 
     @Autowired
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    RedisConnectionFactory redisConnectionFactory;
+    private RedisTokenStore redisTokenStore;
 
     @Autowired
     private XmUserDetailService userDetailsService;
 
 
-    @Bean
-    public RedisTokenStore redisTokenStore() {
-        return new RedisTokenStore(redisConnectionFactory);
-    }
 
     //TODO: 可能是这里的问题,先用inMemory试试
     @Bean
@@ -80,21 +75,29 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
             }
         };
         // 表示支持 client_id 和 client_secret 做登录认证
-        security.tokenKeyAccess("permitAll()")
-                .checkTokenAccess("permitAll()")
-                .allowFormAuthenticationForClients()
+        security.tokenKeyAccess("isAuthenticated()") //允许已授权用户获取 token 接口
+                .checkTokenAccess("isAuthenticated()") //允许已授权用户访问 checkToken 接口
+                .allowFormAuthenticationForClients() //允许客户端访问 OAuth2 授权接口，否则请求 token 会返回 401。
                 .addTokenEndpointAuthenticationFilter(new CorsFilter(source));
     }
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients.withClientDetails(jdbcClientDetailsService());
+        clients.inMemory()
+                .withClient("client-a") //client端唯一标识
+                .secret(passwordEncoder().encode("client-a-secret")) //客户端的密码，这里的密码应该是加密后的
+                .authorizedGrantTypes("authorization_code") //授权模式标识
+                .scopes("read_user_info") //作用域
+                .resourceIds("resource1") //资源id
+                .autoApprove(true)
+                .redirectUris("http://localhost:8080/test/code"); //回调地址
+        //clients.withClientDetails(jdbcClientDetailsService());
     }
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-        endpoints.tokenStore(redisTokenStore())
+        endpoints.tokenStore(redisTokenStore)
                 .authenticationManager(authenticationManager)
                 .userDetailsService(userDetailsService);
-    }
+    }*/
 }
