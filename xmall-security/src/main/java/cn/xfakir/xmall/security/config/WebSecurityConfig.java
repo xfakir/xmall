@@ -97,7 +97,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/test/product").permitAll();
+                .antMatchers("/test/product","/message/code").permitAll();
         registry.anyRequest().authenticated()
                 .and()
                 .userDetailsService(userDetailsService)
